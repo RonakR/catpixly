@@ -18,7 +18,7 @@ export default async function updateImageById(req, res, next) {
 
 		const isImageUpdated = await ImageService.updateImageById(req.params.id, req.file)
 		res.send(
-			isImageUpdated ? 'Image updated successfully' : `Image not updated, no image with id ${req.params.id}) found `
+			isImageUpdated ? 'Image updated successfully' : `Image not updated, no image with id ${req.params.id} found `
 		)
 	} catch (e) {
 		next(e)

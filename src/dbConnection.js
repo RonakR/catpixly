@@ -46,6 +46,12 @@ export function createGridFsStorage() {
 		url: config.mongoDbUrl,
 		options: { useUnifiedTopology: true },
 		file: async (req, file) => {
+			// Confirm the file is an accepted image type
+			const acceptedMimeTypes = ['image/png', 'image/jpg', 'image/jpeg']
+			if (!acceptedMimeTypes.includes(file.mimetype)) {
+				throw new Error(`${file.mimetype} is not a supported file type.`)
+			}
+
 			const splitFileName = file.originalname.split('.')
 			const ext = splitFileName.pop()
 			const newFileName = splitFileName.join('.')
