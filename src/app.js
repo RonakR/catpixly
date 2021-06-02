@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 
+import imageRoutes from './routes/image.js'
 import { createDbConnection } from './dbConnection.js'
 import logger from './logger.js'
 
@@ -10,6 +11,8 @@ const app = express()
 createDbConnection()
 
 app.use(express.json())
+
+app.use('/images', imageRoutes)
 
 app.use('/', (req, res) => {
 	res.send('Hello World')
