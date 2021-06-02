@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "c0e7fe08-26ab-4134-ae9a-139c30ed392f",
+		"name": "Catpixly",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Image To Db",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"recentImageId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "catPic",
+							"type": "file",
+							"src": "/Users/Ronak.Raithatha/Downloads/olympus-c960.jpeg"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/images/image",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"images",
+						"image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Images",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/images/all",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"images",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Image By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/images/image/{{recentImageId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"images",
+						"image",
+						"{{recentImageId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Image File By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/images/file/{{recentImageId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"images",
+						"file",
+						"{{recentImageId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Image By Id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "catPic",
+							"type": "file",
+							"src": "/Users/Ronak.Raithatha/Downloads/image (5).png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/images/image/{{recentImageId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"images",
+						"image",
+						"{{recentImageId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Image By Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/images/image/{{recentImageId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"images",
+						"image",
+						"{{recentImageId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
