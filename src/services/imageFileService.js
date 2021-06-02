@@ -4,6 +4,12 @@ import { gridFsStream } from '../dbConnection.js'
 
 const log = logger.child({ label: 'imageFileService' })
 
+/**
+ * Confirms the image exists in both the images collection and uploads collection
+ *
+ * @param {string} id - Id of the image to retrieve
+ * @returns {Image} image
+ */
 async function getImageFileById(id) {
 	try {
 		const image = await ImageModel.findOne({ _id: id })
