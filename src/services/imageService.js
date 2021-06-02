@@ -57,11 +57,15 @@ async function getImageById(id) {
 
 async function updateImageById(imageId, { filename, id, metadata }) {
 	try {
-		await ImageModel.updateOne({ _id: imageId }, { filename, fileId: id, metadata })
-
+		console.log('imageId', imageId)
+		const update = await ImageModel.updateOne({ _id: imageId }, { filename, fileId: id, metadata })
+		if (update.nModified === 0) {
+			log.info(`Image with id ${imageId} not found. Nothing updated.`)
+			return false
+		}
 		log.info(`Successfully updated image with id ${imageId}`)
 
-		return
+		return true
 	} catch (e) {
 		log.error(`Error updating image ${imageId}: `, e)
 		throw new Error(`Error updating image ${imageId}`)

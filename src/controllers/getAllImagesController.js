@@ -1,3 +1,5 @@
+import createError from 'http-errors'
+
 import ImageService from '../services/imageService.js'
 
 export default async function getAllImages(req, res) {
@@ -5,6 +7,6 @@ export default async function getAllImages(req, res) {
 		const images = await ImageService.getAllImages()
 		res.send(images)
 	} catch (e) {
-		res.status(500).send(`Internal Server Error: ${e.message}`)
+		next(e)
 	}
 }

@@ -15,9 +15,11 @@ async function getImageFileById(id) {
 		const imageFile = await gridFsStream.find({}, { _id: image.fileId }).toArray()
 
 		if (!imageFile[0] && imageFile.length === 0) {
-			log.info(`Image with id: ${id} not found`)
+			log.info(`Image file with id: ${id} not found`)
 			return
 		}
+
+		log.info(`Image file with id: ${id} found`)
 
 		return image
 	} catch (e) {

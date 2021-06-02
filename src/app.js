@@ -1,3 +1,4 @@
+import createError from 'http-errors'
 import 'dotenv/config'
 import express from 'express'
 import path from 'path'
@@ -22,8 +23,24 @@ app.get('/', (req, res) => {
 	res.sendFile(path.resolve(__dirname + '/index.html'))
 })
 
-app.use((req, res) => {
-	res.sendStatus(404)
+app.use((req, res, next) => {
+	next(createError(404, 'Check your request'))
+})
+
+app.use((err, req, res, next) => {
+	let status
+	let message
+	switch (err.status) {
+		case 400:
+			status = 400
+			message = `Validation Error: ${err.message}`
+			break
+		default:
+			status = 500
+			message = `Internal Server Error: ${err.message}`
+	}
+	log.error('Image Api service encountered an error ->', { message })
+	res.status(status).send(message)
 })
 
 app.listen(3000, () => {
