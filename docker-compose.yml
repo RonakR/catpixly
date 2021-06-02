@@ -1,0 +1,14 @@
+version: '3'
+services:
+  catpixly-api:
+    container_name: catpixly-api
+    restart: always
+    build: .
+    ports:
+      - '3000:3000'
+  mongo:
+    container_name: mongo
+    restart: always
+    image: mongo
+    ports:
+      - '27017:27017'
