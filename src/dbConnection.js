@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import GridFsStorage from 'multer-gridfs-storage'
 
 import config from './config.js'
 import logger from './logger.js'
@@ -29,4 +30,25 @@ export function createDbConnection() {
 		log.error('ERROR: Unable to connect to db')
 		log.error(e)
 	}
+}
+
+/**
+ * * Set up GridFS storage engine for storing images to MongoDB
+ */
+export function createGridFsStorage() {
+	const storage = new GridFsStorage({
+		url: config.mongoDbUrl,
+		options: { useUnifiedTopology: true },
+		file: async (req, file) => {
+			const splitFileName = file.originalname.split('.')
+			const ext = splitFileName.pop()
+			const newFileName = splitFileName.join('.')
+			const fileInfo = {
+				filename: `${newFileName}_${Date.now()}.${ext}`,
+				bucketName: 'uploads',
+			}
+			return fileInfo
+		},
+	})
+	return storage
 }

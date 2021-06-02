@@ -3,15 +3,26 @@ import logger from '../logger.js'
 
 const log = logger.child({ label: 'imageService' })
 
-async function addImageToDb(filename) {
+function transformImageFromDb({ _id, filename, fileId, metadata }) {
+	return {
+		id: _id,
+		filename,
+		fileId,
+		metadata,
+	}
+}
+
+async function addImageToDb(imageData) {
 	try {
 		const image = await ImageModel.create({
-			filename,
+			filename: imageData.filename,
+			fileId: imageData.id,
+			metadata: imageData.metadata,
 		})
 
 		log.info(`Image Added to Images Collection with ID: ${image._id}`)
 
-		return image
+		return transformImageFromDb(image)
 	} catch (e) {
 		log.error('Error creating new image: ', e)
 		throw new Error('Error creating new image')
