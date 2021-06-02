@@ -1,6 +1,6 @@
 import ImageService from '../services/imageService.js'
 
-export default async function getAllImages(req, res, next) {
+export default async function getAllImages(req, res) {
 	try {
 		const images = await ImageService.getAllImages()
 		res.send(images)

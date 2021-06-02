@@ -14,8 +14,12 @@ app.use(express.json())
 
 app.use('/images', imageRoutes)
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
 	res.send('Hello World')
+})
+
+app.use((req, res) => {
+	res.sendStatus(404)
 })
 
 app.listen(3000, () => {
