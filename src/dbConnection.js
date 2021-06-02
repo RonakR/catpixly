@@ -7,8 +7,11 @@ import logger from './logger.js'
 const { mongoDbUrl } = config
 const log = logger.child({ label: 'dbConnection' })
 
+export let gridFsStream
+
 /**
  * * Initialize connection to MongoDB
+ * * Upon initialization, set up GridFs stream to retrieve images
  */
 export function createDbConnection() {
 	try {
@@ -21,6 +24,9 @@ export function createDbConnection() {
 
 		dbConnection.once('open', () => {
 			log.info('Db Connected')
+			gridFsStream = new mongoose.mongo.GridFSBucket(dbConnection.db, {
+				bucketName: 'uploads',
+			})
 		})
 		dbConnection.on('errors', (e) => {
 			log.error('ERROR: Unable to execute queries on db')
