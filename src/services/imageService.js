@@ -29,8 +29,22 @@ async function addImageToDb(imageData) {
 	}
 }
 
+async function getAllImages() {
+	try {
+		const images = await ImageModel.find({})
+
+		log.info(`Fetch all images successfully returned with ${images.length} images.`)
+
+		return images.length > 0 ? images.map(transformImageFromDb) : []
+	} catch (e) {
+		log.error('Error fetching all images: ', e)
+		throw new Error('Error fetching all images')
+	}
+}
+
 const ImageService = {
 	addImageToDb,
+	getAllImages,
 }
 
 export default ImageService
