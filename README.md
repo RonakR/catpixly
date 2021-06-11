@@ -76,3 +76,15 @@ A proper path to test this API would look like:
   - Uses `recentImageId`
 
 There is also a low-code landing page at `http://localhost:3000/` to help upload images, although it does to fetch them too.
+
+## Additions to make to the project
+
+- Testing (probably with Jest)
+- Better frontend, with React
+- Swagger docs for API spec instead of markdown
+- Auth
+- Better error handling and logging
+
+- Maybe a way to join the two collections so we do not have Images and Uploads to keep track of.
+
+TODO: Learn multer and multipart form data, gridfs
